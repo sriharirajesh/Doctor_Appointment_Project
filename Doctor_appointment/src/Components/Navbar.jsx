@@ -2,14 +2,28 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets/assets_frontend/assets';
 
-const NavBar = () => {
+export  const NavBar = () => {
     const navigate = useNavigate()
     const [showMenu,setShowMenu] = useState(false)
     const [token,setToken] = useState(true)
+    const [fix,setFix] =useState(false)
+
+    function setFixed(){
+        
+            if(window.scrollY >= 300){
+                setFix(true)
+            }
+            else{
+                setFix(false)
+            }
+        
+    }
+
+    window.addEventListener("scroll",setFixed)
 
   return (
-    <div className='flex items-center justify-between text-m py-4 mb-5 border-b border-b-violet-500 '>
-       <img className='w-44 cursor-pointer' src={assets.logo} alt=''/>
+    <div className='flex items-center justify-between text-m py-4 mb-5 border-b border-b-violet-500  '>
+       <img onClick={()=>navigate('/')} className='w-44 cursor-pointer' src={assets.logo} alt=''/>
        <ul className='hidden md:flex items-start gap-5 font-medium'>
         <NavLink to='/'>
             <li className='py-1'>Home</li>
@@ -19,11 +33,11 @@ const NavBar = () => {
             <li className='py-1'>All Doctors</li>
             <hr className='border-none outline-none h-1 bg-primary w-3/5 m-auto hidden'/>
         </NavLink>
-        <NavLink to='/Contact'>
+        <NavLink to = '/contact'>
             <li className='py-1'>Contact</li>
             <hr  className='border-none outline-none h-1 bg-primary w-3/5 m-auto hidden'/>
         </NavLink>
-        <NavLink to='/About'>
+        <NavLink to='/about'>
             <li className='py-1'>About</li>
             <hr  className='border-none outline-none h-1 bg-primary w-3/5 m-auto hidden'/>
         </NavLink>
@@ -42,7 +56,7 @@ const NavBar = () => {
                    </div>
                </div>
               </div>
-              :<button onClickCapture={()=>setToken(true)} onClick={()=>navigate('/Login')} className='bg-primary py-3 px-4 font-light text-white rounded-full flex items-center' >Create account</button>
+              :<button onClickCapture={()=>setToken(false)} onClick={()=>navigate('/Login')} className='bg-primary py-3 px-4 font-light text-white rounded-full flex items-center' >Create account</button>
         }
        </div>
        

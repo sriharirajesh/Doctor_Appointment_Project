@@ -12,7 +12,7 @@ const Header = () => {
                 <img className='h-30 w-45 py-3 m-auto' src={assets.group_profiles} alt=""/>
                 <p className='m-auto text-white py-1'>Simply Browse through our extensive List of Trusted Doctors<br/>schedule your hassle-free </p>
             </div>
-            <a href="#specialist" className='flex items-center  gap-2 bg-gray-500 hover:bg-gray-600 text-black font-bold py-4 px-4 rounded-full transition-all duration-300'>Book Appointment <img className='brightness-50 relative' src={assets.arrow_icon} alt=""/></a>
+            <a href="#speciality" className='flex items-center  gap-2 bg-gray-500 hover:bg-gray-600 text-black font-bold py-4 px-4 rounded-full transition-all duration-300'>Book Appointment <img className='brightness-50 relative' src={assets.arrow_icon} alt=""/></a>
 
          </div>
          {/*--Right--side--*/}

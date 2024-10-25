@@ -1,13 +1,18 @@
 import React from 'react';
+import Bannner from '../Components/Bannner';
+import Footer from '../Components/Footer';
 import Header from '../Components/Header';
-import specialist from '../Components/specialist';
+import SpecialityMenu from '../Components/SpecialityMenu';
+import TopDoctors from '../Components/TopDoctors';
 
 
 const Home = () => {
   return (
     <div>
       <Header/>
-      <specialist/>
+      <SpecialityMenu/>
+      <TopDoctors/>
+      <Bannner/>
     </div>
   );
 }

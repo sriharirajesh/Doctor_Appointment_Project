@@ -11,6 +11,9 @@ export default {
        },
        hover:{
         'primary':"#2563eb"
+       },
+       gridTemplateColumns:{
+        'auto':'repeat(auto-fill,minmax(200px,1fr))'
        }
       
     },
