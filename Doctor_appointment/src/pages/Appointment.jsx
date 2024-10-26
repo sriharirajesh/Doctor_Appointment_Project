@@ -15,7 +15,7 @@ const Appointment = () => {
       const fetchDocInfo = async () =>{
         const docInfo = doctors.find(item => item._id === docId)
         setDocInfo(docInfo)
-        console.log(docInfo)
+        console.log(doctors)
       }
       
      
@@ -29,11 +29,11 @@ const Appointment = () => {
        {/*---Doctor details--*/}
        <div>
          <div>
-            <img src={docInfo} alt=""/>
+            <img src={doctors} alt=""/>
             </div>
        </div>
         <div>
-            <p>{docInfo}</p>
+            <p>{doctors}</p>
         </div>
     </div>
   );
