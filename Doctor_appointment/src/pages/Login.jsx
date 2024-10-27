@@ -9,6 +9,7 @@ const Login = () => {
     const [name,setName] = useState('')
     const [userDetails, setUserDetails] = useState(null);
     const [error, setError] = useState('');
+    const [message,setMessage] = useState('')
 
 
     const handleLogin = async (e) => {
@@ -16,6 +17,9 @@ const Login = () => {
          try{
             const response = await axios.post("http://127.0.0.1:5000/create", {name} ,{email},{password})
             setName(response.data)
+            setEmail(response.data)
+            setPassword(response.data)
+            setMessage(response.data.message)
             setError('')
          }catch(err){
             setError(err.response.data.error)
@@ -23,8 +27,23 @@ const Login = () => {
          }
     }
 
+    const handleCreate = async (e) => {
+        e.preventDefault()
+        try{
+            const response = await axios.post("http://127.0.0.1:5000/login" , {email} , {password})
+            setEmail(response.data)
+            setPassword(response.data)
+            setMessage(response.data.message)  
+            setError('')      
+        }catch(err){
+            setError(err.response.data.error)
+            setUserDetails(null)
+        }
+    }
+
   return (
-    <form onSubmit={handleLogin } className='min-h-[100vh] w-full flex items-center'>
+    <div>
+    <form onSubmit={handleLogin } onCreate ={handleCreate} className='min-h-[100vh] w-full flex items-center'>
        <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[440px] sm:min-w-[96px] border rounded-xl text-zinc-600 text-sm shadow-lg'>
         <p className='text-2xl font-semibold'>{login === 'Sign up'? 'Create Account' : 'Login'}</p>
         <p>please{login === 'Sign up' ? 'Sign up' : 'Login'} To Book Appointment </p>
@@ -49,7 +68,10 @@ const Login = () => {
        </div>
 
     </form>
+        {message && <p>{message}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+    </div>
   );
 }
 
-export default Login;
+export default Login; 
