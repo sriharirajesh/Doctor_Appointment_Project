@@ -1,45 +1,43 @@
-from flask import Flask
+from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Allow CORS for frontend requests
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
-doctors = [
-{
-    
-        '_id': 'doc1',
-        'name': 'Dr. Richard James',
-        'image': 'doc1',
-        'speciality': 'General physician',
-        'degree': 'MBBS',
-        'experience': '4 Years',
-        'about': 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
-        'fees': '50',
-        'address': {
-            'line1': '17th Cross, Richmond',
-            'line2': 'Circle, Ring Road, London'
-        
-    }
-    
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False) 
+    password = db.Column(db.String(100), unique = True , nullable = False) 
 
-      
-      
-    
-    
+with app.app_context():
+    db.create_all()
 
-}
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data.get('username')
+    user = User.query.filter_by(username=username).first()
+    if user:
+        return jsonify({
+            'id': user.id,
+            'username': user.name,
+            'email': user.email,
+            'password':user.password
+        })
+    return jsonify({'error': 'User not found'}), 404
 
-]
+@app.route('/create', methods=['POST'])
+def register():
+    data = request.json
+    new_user = User(username=data['username'], email=data['email'])
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'message': 'User created'}), 201
 
-
-@app.route('/api/doctors')
-def get_doctors(doctor_id,doctor):
-       doctor=doctors.get(doctor_id)
-       return doctor
-         
-        
-      
-
-
-
-
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True)

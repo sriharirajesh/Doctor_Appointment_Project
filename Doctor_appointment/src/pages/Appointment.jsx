@@ -13,9 +13,12 @@ const Appointment = () => {
     const [docInfo,setDocInfo] = useState(null)
 
       const fetchDocInfo = async () =>{
-        const docInfo = doctors.find(item => item._id === docId)
-        setDocInfo(docInfo)
-        console.log(doctors)
+        const docInfo = doctors.filter((doc) => {
+            console.log("Each Doctor Info", doc);
+            return doc._id === docId;
+          });
+        setDocInfo(docInfo?.[0])
+        console.log(docInfo)
       }
       
      
@@ -25,16 +28,23 @@ const Appointment = () => {
     },[doctors,docId])
      
   return (
-    <div>
-       {/*---Doctor details--*/}
-       <div>
-         <div>
-            <img src={doctors} alt=""/>
-            </div>
-       </div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        alignItems: "center",
+      }}
+    >
+      {/*---Doctor details--*/}
+      <div>
         <div>
-            <p>{doctors}</p>
+          <img src={docInfo?.image} alt="" />
         </div>
+      </div>
+      <div>
+        <p>Name: {docInfo?.name}</p>
+      </div>
     </div>
   );
 }
