@@ -5,7 +5,7 @@ import { assets } from '../assets/assets/assets_frontend/assets';
 export  const NavBar = () => {
     const navigate = useNavigate()
     const [showMenu,setShowMenu] = useState(false)
-    const [token,setToken] = useState(true)
+    const [token,setToken] = useState(false)
     const [fix,setFix] =useState(false)
 
     function setFixed(){
@@ -22,7 +22,7 @@ export  const NavBar = () => {
     window.addEventListener("scroll",setFixed)
 
   return (
-    <div className='flex items-center justify-between text-m py-4 mb-5 border-b border-b-violet-500  '>
+    <div className='flex items-center justify-between text-m py-4 mb-5 border-b border-b-violet-500   '>
        <img onClick={()=>navigate('/')} className='w-44 cursor-pointer' src={assets.logo} alt=''/>
        <ul className='hidden md:flex items-start gap-5 font-medium'>
         <NavLink to='/'>

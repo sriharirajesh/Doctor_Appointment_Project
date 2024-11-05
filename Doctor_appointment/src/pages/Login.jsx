@@ -10,19 +10,20 @@ const Login = () => {
     const [userDetails, setUserDetails] = useState(null);
     const [error, setError] = useState('');
     const [message,setMessage] = useState('')
+    const [data,setData] = useState('')
 
 
     const handleLogin = async (e) => {
          e.preventDefault()
          try{
-            const response = await axios.post("http://127.0.0.1:5000/create", {name} ,{email},{password})
+            const response = await axios.post("http://127.0.0.1:5000/create", {name,email,password})
             setName(response.data)
             setEmail(response.data)
             setPassword(response.data)
             setMessage(response.data.message)
             setError('')
-         }catch(err){
-            setError(err.response.data.error)
+         }catch(error){
+            setError(error.response.data.error)
             setUserDetails(null)
          }
     }
@@ -30,13 +31,13 @@ const Login = () => {
     const handleCreate = async (e) => {
         e.preventDefault()
         try{
-            const response = await axios.post("http://127.0.0.1:5000/login" , {email} , {password})
+            const response = await axios.post("http://127.0.0.1:5000/login" , {email,password})
             setEmail(response.data)
             setPassword(response.data)
             setMessage(response.data.message)  
             setError('')      
-        }catch(err){
-            setError(err.response.data.error)
+        }catch(error){
+            setError(error.response.data.error)
             setUserDetails(null)
         }
     }
